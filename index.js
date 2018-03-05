@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import * as models from './models/index'
-import { retrieve } from './controllers/baseController'
+import { processRequest } from './controllers/baseController'
 import env from './env.json'
 const app = express();
 
@@ -28,7 +28,7 @@ app.get('/api/shick', (req, res) => {
 
 //api routes
 app.get('/api/:type*', async (req, res) => {
-  retrieve(req , res)
+  processRequest(req , res)
 })
 
 app.post('/api/:type*',  async (req, res) => {
