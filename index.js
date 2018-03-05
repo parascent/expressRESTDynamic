@@ -2,10 +2,11 @@ import express from 'express'
 import mongoose from 'mongoose'
 import * as models from './models/index'
 import { retrieve } from './controllers/baseController'
+import env from './env.json'
 const app = express();
 
 
-mongoose.connect('mongodb://admin1:admin1@ds123752.mlab.com:23752/appraisal')
+mongoose.connect(env.testDB.url)
 
 app.get('/',  (req, res) => {
  res.send('Hello World!')
