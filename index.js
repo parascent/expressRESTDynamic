@@ -1,0 +1,49 @@
+import express from 'express'
+import mongoose from 'mongoose'
+import * as models from './models/index'
+import { retrieve } from './controllers/baseController'
+const app = express();
+
+
+mongoose.connect('mongodb://admin1:admin1@ds123752.mlab.com:23752/appraisal')
+
+app.get('/',  (req, res) => {
+ res.send('Hello World!')
+})
+
+app.get('/api/shick', (req, res) => {
+  let shaffaf = new models.testModel({
+    name: 'Shaffaaf',
+    size: 'small'
+  })
+  shaffaf.save((err) => {
+    if(err){
+      console.log(err)
+    } else {
+      console.log('meow')
+    }
+  })
+})
+
+//api routes
+app.get('/api/:type/*', async (req, res) => {
+  let result =  await retrieve(req.params['type'], req.params[0])
+  res.send(result)
+})
+
+app.post('/api/:type/*',  async (req, res) => {
+  res.send(type)
+})
+
+app.put('/api/:type/*',  async (req, res) =>{
+  res.send(type)
+})
+
+app.delete('/api/:type/*', async (req, res) =>{
+  res.send(type)
+})
+
+
+app.listen(3000, function () {
+ console.log('Example app listening on port 3000!')
+});
