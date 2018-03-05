@@ -27,19 +27,19 @@ app.get('/api/shick', (req, res) => {
 })
 
 //api routes
-app.get('/api/:type/*', async (req, res) => {
-  retrieve(req.params['type'], req.params[0], res)
+app.get('/api/:type*', async (req, res) => {
+  retrieve(req , res)
 })
 
-app.post('/api/:type/*',  async (req, res) => {
+app.post('/api/:type*',  async (req, res) => {
   res.send(type)
 })
 
-app.put('/api/:type/*',  async (req, res) =>{
+app.put('/api/:type*',  async (req, res) =>{
   res.send(type)
 })
 
-app.delete('/api/:type/*', async (req, res) =>{
+app.delete('/api/:type*', async (req, res) =>{
   res.send(type)
 })
 
