@@ -27,8 +27,7 @@ app.get('/api/shick', (req, res) => {
 
 //api routes
 app.get('/api/:type/*', async (req, res) => {
-  let result =  await retrieve(req.params['type'], req.params[0])
-  res.send(result)
+  retrieve(req.params['type'], req.params[0], res)
 })
 
 app.post('/api/:type/*',  async (req, res) => {
