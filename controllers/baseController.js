@@ -1,12 +1,14 @@
 import * as models from '../models/index'
-
+let type = ''
+let query = {}
+let model = {} 
+let queryObject = {}
+let items = []
 
 var retrieve = async (req, res) => {
-  let type = req.params.type
-  let query  = req.query
-  let model = models[type]
-  let queryObject = {}
-  let items = []
+  type = req.params.type
+  query = req.query
+  model = models[type]
  
   if (model == undefined) {
     res.status(404).send('No model by the name:'+type)
