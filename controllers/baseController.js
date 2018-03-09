@@ -83,7 +83,7 @@ var processRequest = async (req, res) => {
     case 'DELETE': {
       let result = await remove()
       if (result) {
-        return res.status(status).send(items)
+        return res.status(status).send({'deleted':items})
       } else {
         let sendObject = {
           'message': message,
@@ -92,7 +92,7 @@ var processRequest = async (req, res) => {
         if (failedItems) {
           sendObject['failedItems'] = failedItems
         }
-        return res.status(status).send(failedItems)
+        return res.status(status).send(sendObject)
       }
       break        
     }
@@ -148,14 +148,13 @@ var update = async () => {
 }
 
 var remove = async () => {
-  items['removed'] = []  
   if (Array.isArray(reqData)) {
     //multicreate
   } else {
     //single create
     try {
       // await model
-      items['removed'].push(await model.findOneAndRemove({"_id":reqData._id}))
+      items.push(await model.findOneAndRemove({"_id":reqData._id}))
       return status = 410
     } catch (e) {
       console.log(e)
