@@ -50,21 +50,50 @@ var processRequest = async (req, res) => {
       if (result) {
         return res.status(status).send(items)
       } else {
-        return res.status(status).send({
+        let sendObject = {
           'message': message,
           'items': items,
-          'failedItems': failedItems
-        })
+        }
+        if (failedItems) {
+          sendObject['failedItems'] = failedItems
+        }
+        return res.status(status).send(failedItems)
       }
       break
     }
       
     
-    case 'PUT': { 
+    case 'PUT': {
+      let result = await update()
+      if (result) {
+        return res.status(status).send(items)
+      } else {
+        let sendObject = {
+          'message': message,
+          'items': items,
+        }
+        if (failedItems) {
+          sendObject['failedItems'] = failedItems
+        }
+        return res.status(status).send(failedItems)
+      }
       break
     }
     
     case 'DELETE': {
+      let result = await remove()
+      if (result) {
+        return res.status(status).send(items)
+      } else {
+        let sendObject = {
+          'message': message,
+          'deleted': items,
+        }
+        if (failedItems) {
+          sendObject['failedItems'] = failedItems
+        }
+        return res.status(status).send(failedItems)
+      }
       break        
     }
   }
@@ -104,11 +133,34 @@ var create = async () => {
 }
 
 var update = async () => {
+  if (Array.isArray(reqData)) {
+    //multicreate
+  } else {
+    //single create
+    try {
+      // await model
+      items.push(await model.findByIdAndUpdate(reqData._id, reqData,{new:true,}))
+      return status = 200
+    } catch (e) {
 
+    }
+  }
 }
 
 var remove = async () => {
-  
+  items['removed'] = []  
+  if (Array.isArray(reqData)) {
+    //multicreate
+  } else {
+    //single create
+    try {
+      // await model
+      items['removed'].push(await model.findOneAndRemove({"_id":reqData._id}))
+      return status = 410
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
 
