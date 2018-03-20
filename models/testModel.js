@@ -11,4 +11,7 @@ var TestModelProps = {
  
 }
 
-module.exports = TestModel
+module.exports = {
+  'model': TestModel,
+  'modelProps': TestModelProps,
+}

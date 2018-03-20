@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-03-09T17:49:35.387Z",
+	"__export_date": "2018-03-20T10:19:42.649Z",
 	"__export_source": "insomnia.desktop.app:v5.14.9",
 	"resources": [
 		{
@@ -38,7 +38,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" :\"Ahmed\",\n\t\"size\": \"Small\"\n}"
+				"text": "{\n\t\"name\" :\"Ahmed\",\n\t\"size\": \"Small\",\n\t\"testModel\": \"5ab019862dab612a997687b1\"\n}"
 			},
 			"created": 1520576394018,
 			"description": "",
@@ -51,7 +51,7 @@
 			],
 			"metaSortKey": -1520576394019,
 			"method": "POST",
-			"modified": 1520600843455,
+			"modified": 1521490358529,
 			"name": "CREATE",
 			"parameters": [
 				{
@@ -65,7 +65,7 @@
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "http://localhost:3000/api/testmodel/",
+			"url": "http://localhost:3000/api/testmodeltwo/",
 			"_type": "request"
 		},
 		{
@@ -77,7 +77,7 @@
 			"headers": [],
 			"metaSortKey": -1520590290242,
 			"method": "GET",
-			"modified": 1520590706223,
+			"modified": 1521539923752,
 			"name": "GET BY ID",
 			"parameters": [],
 			"parentId": "wrk_96aeabe1eb514e5097aae0b716666a7c",
@@ -85,7 +85,7 @@
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "http://localhost:3000/api/testmodel/5aa25f5df62e3a6d61e46445",
+			"url": "http://localhost:3000/api/testmodel/5ab019862dab612a997687b1",
 			"_type": "request"
 		},
 		{
@@ -97,7 +97,7 @@
 			"headers": [],
 			"metaSortKey": -1520590732885,
 			"method": "GET",
-			"modified": 1520590740671,
+			"modified": 1521539912178,
 			"name": "GET",
 			"parameters": [],
 			"parentId": "wrk_96aeabe1eb514e5097aae0b716666a7c",
@@ -105,7 +105,7 @@
 			"settingEncodeUrl": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "http://localhost:3000/api/testmodel",
+			"url": "http://localhost:3000/api/testmodeltwo",
 			"_type": "request"
 		},
 		{
@@ -113,7 +113,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\t\"_id\": \"5aa25f5df62e3a6d61e46445\",\n\t\t\"name\": \"Shaufa\",\n\t\t\"size\": \"Large\"\n}"
+				"text": "{\n\t\t\"_id\": \"5ab019862dab612a997687b1\",\n\t\t\"name\": \"Shaufa\",\n\t\t\"size\": \"Large\"\n}"
 			},
 			"created": 1520599630501,
 			"description": "",
@@ -126,7 +126,7 @@
 			],
 			"metaSortKey": -1520599630501,
 			"method": "PUT",
-			"modified": 1520600116833,
+			"modified": 1521539348408,
 			"name": "PUT",
 			"parameters": [],
 			"parentId": "wrk_96aeabe1eb514e5097aae0b716666a7c",

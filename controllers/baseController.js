@@ -5,7 +5,9 @@ let type = ''
 let id = ''
 let query = {}
 let model = {} 
+let modelProps = {}
 let queryObject = {}
+let populateQuery = ['']
 let items = []
 let failedItems = []
 let message = ''
@@ -16,7 +18,13 @@ var processRequest = async (req, res) => {
 
   type = req.params.type
   query = req.query
-  model = models[type]
+  model = models[type]['model']
+  modelProps = models[type]['modelProps']
+
+  //addDefaultPopulateData
+  populateQuery = modelProps.defaultPopulateQuery ? modelProps.defaultPopulateQuery : ''  
+
+
   //check model
   if (model == undefined) {
     return res.status(404).send('No model by the name:' + type)
@@ -104,10 +112,12 @@ var processRequest = async (req, res) => {
 var retrieve = async () => {
   
   try { 
-    items = await model.find(queryObject ? queryObject : {}) 
+    items = await model.find(queryObject ? queryObject : {})
+      .populate(populateQuery)
+      .exec()
     status = 200
   } catch (e) {
-    message = 'No items that fit the query:'
+    message = 'No items that fit the query:' + e
     status = 404
     return false
   }

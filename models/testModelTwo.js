@@ -5,16 +5,19 @@ var Schema = mongoose.Schema;
 var schema = new mongoose.Schema({
     name: 'string',
     size: 'string',
-    testModel: [{ type: Schema.Types.ObjectId, ref: 'testModel' }]
+    testModel: [{ type: Schema.Types.ObjectId, ref: 'Tank' }]
 })
 
 var TestModelTwo = mongoose.model('TankTwo', schema)
 
 var TestModelProps = {
-  defaultWiths: {
-    testModelTwo: ['size'],
-  },
+  defaultPopulateQuery: [
+    // { path: 'testModel', select: ['name']}
+  ],
   defaultSelects: {},
 }
 
-module.exports = TestModelTwo
+module.exports = {
+  'model': TestModelTwo,
+  'modelProps' : TestModelProps
+}
