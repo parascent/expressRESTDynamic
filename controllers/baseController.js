@@ -4,9 +4,10 @@ import { stat } from 'fs';
 let type = ''
 let id = ''
 let query = {}
-let model = {} 
+let model = {}
 let modelProps = {}
 let queryObject = {}
+let textQueryObject = {}
 let populateQuery = ['']
 let items = []
 let failedItems = []
@@ -22,23 +23,46 @@ var processRequest = async (req, res) => {
   modelProps = models[type]['modelProps']
 
   //addDefaultPopulateData
-  populateQuery = modelProps.defaultPopulateQuery ? modelProps.defaultPopulateQuery : ''  
+  populateQuery = modelProps.defaultPopulateQuery ? modelProps.defaultPopulateQuery : ''
 
 
   //check model
   if (model == undefined) {
     return res.status(404).send('No model by the name:' + type)
   }
+
   //set id
   let id = req.params[0] ? req.params[0].substring(1) : null
-  if (id) queryObject["_id"] = id
+  if (id) queryObject['_id'] = id
+
+  //addQueries
+  if (req.query) {
+    console.log(req.query.query)
+    let queryKeyValues = req.query.query.split(',')
+    queryKeyValues.map((item) => {
+      item = item.split(':')
+      if (item[1].match(/^\*/)) {
+        if (item[1].indexOf('*') == 0) { 
+          item[1] = item[1].slice(1)
+        } else {
+          item[1] = item[1].slice(0,-1)
+        }
+        queryObject[item[0]] = { $regex: new RegExp(item[1])}
+      }else {
+        queryObject[item[0]] = item[1]        
+      }
+    })
+  }
+
+  console.log(queryObject)
 
   //set request data for POST and PUT
   if (req.body) reqData = req.body
-  
+
   //finally query from database and show result
 
   switch (req.method) {
+
     case 'GET': {
       let result = await retrieve()
       if (result) {
@@ -51,9 +75,9 @@ var processRequest = async (req, res) => {
       }
       break
     }
-      
-  
-    case 'POST': { 
+
+
+    case 'POST': {
       let result = await create()
       if (result) {
         return res.status(status).send(items)
@@ -69,8 +93,8 @@ var processRequest = async (req, res) => {
       }
       break
     }
-      
-    
+
+
     case 'PUT': {
       let result = await update()
       if (result) {
@@ -87,7 +111,7 @@ var processRequest = async (req, res) => {
       }
       break
     }
-    
+
     case 'DELETE': {
       let result = await remove()
       if (result) {
@@ -102,7 +126,7 @@ var processRequest = async (req, res) => {
         }
         return res.status(status).send(sendObject)
       }
-      break        
+      break
     }
   }
 
@@ -110,9 +134,15 @@ var processRequest = async (req, res) => {
 }
 
 var retrieve = async () => {
-  
-  try { 
-    items = await model.find(queryObject ? queryObject : {})
+  console.log('textQueryObject', textQueryObject)
+  console.log('queryObject', queryObject)
+  try {
+    items = await model
+      .find(
+        queryObject ? queryObject : {},
+        // textQueryObject ? { $text: { textQueryObject } } : {}
+        // { $text: {$search: 'S'}}
+      )
       .populate(populateQuery)
       .exec()
     status = 200
@@ -125,8 +155,8 @@ var retrieve = async () => {
   return true
 }
 
-var create = async () => { 
-  if (Array.isArray(reqData)) { 
+var create = async () => {
+  if (Array.isArray(reqData)) {
     //multicreate
   } else {
     //single create
@@ -136,10 +166,10 @@ var create = async () => {
       return status = 201
     } catch (e) {
 
-    }  
+    }
   }
-  
-  
+
+
 }
 
 var update = async () => {
