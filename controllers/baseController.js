@@ -8,6 +8,7 @@ let model = {}
 let modelProps = {}
 let queryObject = {}
 let textQueryObject = {}
+let sortObject = {}
 let populateQuery = ['']
 let items = []
 let failedItems = []
@@ -37,24 +38,35 @@ var processRequest = async (req, res) => {
 
   //addQueries
   if (req.query) {
-    console.log(req.query.query)
-    let queryKeyValues = req.query.query.split(',')
-    queryKeyValues.map((item) => {
-      item = item.split(':')
-      if (item[1].match(/^\*/)) {
-        if (item[1].indexOf('*') == 0) { 
-          item[1] = item[1].slice(1)
+    console.log(req.query)
+    //if there are queries
+    if (req.query.query) { 
+      let queryKeyValues = req.query.query.split(',')
+      queryKeyValues.map((item) => {
+        item = item.split(':')
+        if (item[1].match(/^\*/)) {
+          if (item[1].indexOf('*') == 0) {
+            item[1] = item[1].slice(1)
+          } else {
+            item[1] = item[1].slice(0, -1)
+          }
+          queryObject[item[0]] = { $regex: new RegExp(item[1]) }
         } else {
-          item[1] = item[1].slice(0,-1)
+          queryObject[item[0]] = item[1]
         }
-        queryObject[item[0]] = { $regex: new RegExp(item[1])}
-      }else {
-        queryObject[item[0]] = item[1]        
-      }
-    })
+      })
+    }
+    //if sort is provided
+    if (req.query.sort) { 
+      let sortKeyValues = req.query.sort.split(',')
+      sortKeyValues.map((item) => {
+        item = item.split(':')
+        sortObject[item[0]] = item[1] == 'dsc' ? -1 : 1
+      })
+    }
+    
   }
 
-  console.log(queryObject)
 
   //set request data for POST and PUT
   if (req.body) reqData = req.body
@@ -144,6 +156,7 @@ var retrieve = async () => {
         // { $text: {$search: 'S'}}
       )
       .populate(populateQuery)
+      .sort(sortObject)
       .exec()
     status = 200
   } catch (e) {

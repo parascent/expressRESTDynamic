@@ -6,5 +6,8 @@
 - [x] Querying precise ?query=name:Shaufa,size:Small
 - [x] Querying non-precise ?query=name:*S,size:Small
 - [ ] Querying using mongodb $text ?query=name**Shaufa
-- [ ] Order by params ?orderby=name:asc,size:dsc
+- [x] Order by params ?orderby=name:asc,size:dsc
+- [ ] File Uploads
+- [ ] Pagination
+- [ ] Pagination only models model{pagination{required:true} }
 - [ ] Editing related relations
