@@ -20,17 +20,21 @@ var processRequest = async (req, res) => {
 
   type = req.params.type
   query = req.query
-  model = models[type]['model']
+
+  //getModel
+  model = models[type] ? models[type]['model'] : null
+  //check model
+  if (!model) {
+    return res.status(404).send('No model by the name:' + type)
+  }
+
   modelProps = models[type]['modelProps']
 
   //addDefaultPopulateData
   populateQuery = modelProps.defaultPopulateQuery ? modelProps.defaultPopulateQuery : ''
 
 
-  //check model
-  if (model == undefined) {
-    return res.status(404).send('No model by the name:' + type)
-  }
+  
 
   //set id
   let id = req.params[0] ? req.params[0].substring(1) : null
