@@ -6,6 +6,7 @@
 - [x] Querying precise ?query=name:Shaufa,size:Small
 - [x] Querying non-precise ?query=name:*S,size:Small
 - [ ] Querying using mongodb $text ?query=name**Shaufa
+- [ ] Where in ?in[unit_id]=34_56
 - [x] Order by params ?orderby=name:asc,size:dsc
 - [ ] File Uploads
 - [ ] Pagination
