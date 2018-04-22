@@ -31,7 +31,7 @@ var processRequest = async (req, res) => {
   modelProps = models[type]['modelProps']
 
   //addDefaultPopulateData
-  populateQuery = modelProps.defaultPopulateQuery ? modelProps.defaultPopulateQuery : ''
+  populateQuery = modelProps.defaultPopulateQuery ? modelProps.defaultPopulateQuery : []
 
 
   
@@ -156,8 +156,6 @@ var retrieve = async () => {
     items = await model
       .find(
         queryObject ? queryObject : {},
-        // textQueryObject ? { $text: { textQueryObject } } : {}
-        // { $text: {$search: 'S'}}
       )
       .populate(populateQuery)
       .sort(sortObject)
