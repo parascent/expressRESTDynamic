@@ -12,3 +12,5 @@
 - [ ] Pagination
 - [ ] Pagination only models model{pagination{required:true} }
 - [ ] Editing related relations
+- [ ] Wrap req,res objects in franework agnostic object-function whatever
+ 
