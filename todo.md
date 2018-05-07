@@ -5,9 +5,19 @@
 - [x] Relationship Query population 
 - [x] Querying precise ?query=name:Shaufa,size:Small
 - [x] Querying non-precise ?query=name:*S,size:Small
-- [ ] Querying using mongodb $text?query=name**Shaufa
+- [ ] Querying using mongodb $text ?query=name**Shaufa
+- [ ] Where in ?in[unit_id]=34_56
 - [x] Order by params ?orderby=name:asc,size:dsc
 - [ ] File Uploads
 - [ ] Pagination ?pag=page:1,paginateby2
 - [ ] Pagination only models model{pagination{required:true, maxppg:10} }, maximum per page
 - [ ] Editing related relations
+- [ ] Wrap req,res objects in franework agnostic object-function whatever
+- [ ] Single File Uploads
+- [ ] Multiple File Uploads
+- [ ] Anonymous File Uplaods
+- [ ] Auth MiddleWare
+- [ ] oAuth
+- [ ] ACL
+- [ ] ACL MiddleWare
+ 
