@@ -21,4 +21,5 @@
 - [ ] ACL
 - [ ] ACL MiddleWare
 - [ ] Discrete Register
+- [ ] Add photo transform // save images in web p 
  

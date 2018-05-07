@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import * as models from './models/index'
 import { processRequest } from './controllers/baseController'
 import env from './env.json'
+import multer from 'multer'
+
 const app = express();
 
 app.use(bodyParser.json())
@@ -45,12 +47,17 @@ app.delete('/api/:type*', async (req, res) =>{
 })
 
 
-app.post('api/upload', async (req, res) => {
-  return res.status(200)
+var uploader = multer({
+  dest: 'uploads/',
+  limits: {fileSize: 1100000, files: 12 }
 })
 
-app.post('api/anonupload', async (req, res) => {
-  return res.status(200)  
+app.post('api/upload', uploader.array('files'), async (req, res) => {
+  return res.status(200).send(req.files)
+})
+
+app.post('api/anonupload', uploader.array('files'),async (req, res) => {
+  return res.status(200).send(req.files)  
 })
 
 app.listen(3000, function () {
