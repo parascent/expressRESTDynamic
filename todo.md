@@ -20,4 +20,5 @@
 - [ ] oAuth
 - [ ] ACL
 - [ ] ACL MiddleWare
+- [ ] Discrete Register
  

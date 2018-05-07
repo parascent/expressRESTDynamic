@@ -45,6 +45,14 @@ app.delete('/api/:type*', async (req, res) =>{
 })
 
 
+app.post('api/upload', async (req, res) => {
+  return res.status(200)
+})
+
+app.post('api/anonupload', async (req, res) => {
+  return res.status(200)  
+})
+
 app.listen(3000, function () {
  console.log('Example app listening on port 3000!')
 });
